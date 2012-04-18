@@ -1,0 +1,5 @@
+^LinearSolver/bin
+^LinearSolver/obj
+^LinearSolver.suo
+
+^tmp
