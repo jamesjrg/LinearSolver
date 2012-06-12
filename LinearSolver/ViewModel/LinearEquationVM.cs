@@ -17,26 +17,29 @@ namespace LinearSolver.ViewModel
         {
             _model = new LinearEquationSolver();
             //this in turn rebuilds coefficient matrix
-            NUnknown = 2;
+            NUnknown = 4;
         }
 
         private void RebuildCoefficientMatrix()
         {
-            CoefficientMatrix = new List<List<DependencyDouble>>();
+            //build as temp object so UI does not update too soon
+            var tmpMatrix = new List<List<DependencyDouble>>();
             BVector = new List<DependencyDouble>();
             Unknowns = new List<string>();
 
             for (int i = 0; i != NUnknown; ++i)
             {
-                CoefficientMatrix.Add(new List<DependencyDouble>());
+                tmpMatrix.Add(new List<DependencyDouble>());
                 for (int j = 0; j != NUnknown; ++j)
-                    CoefficientMatrix[i].Add(new DependencyDouble());
+                    tmpMatrix[i].Add(new DependencyDouble());
 
                 BVector.Add(new DependencyDouble());
 
                 char unknown = (char)(i + Convert.ToInt32('a'));
                 Unknowns.Add(new string(unknown, 1));
             }
+
+            CoefficientMatrix = tmpMatrix;
         }
 
         public void Solve()

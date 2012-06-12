@@ -4,12 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:LinearSolver.ViewModel"
+             xmlns:view="clr-namespace:LinearSolver.View"
              xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
+        <view:ParenScaleConverter x:Key="ParenScaleConverter" />
+        
+        <DataTemplate x:Key="parenTemplate">
+            <TextBlock Text="{Binding}">
+                <TextBlock.RenderTransform>
+                <ScaleTransform ScaleY="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},
+                    Path=DataContext.CoefficientMatrix, Converter={StaticResource ParenScaleConverter}}"
+                                CenterY="4"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </DataTemplate>
+        
         <Style x:Key="HorizontalListBox">
             <Style.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="White" />
@@ -24,14 +37,16 @@
         </Style>
         
         <DataTemplate x:Key="CellTemplate">
-            <xctk:DoubleUpDown Value="{Binding Val}"/>
+            <xctk:DoubleUpDown Value="{Binding Val}" SelectAllOnGotFocus="True"/>
         </DataTemplate>
 
         <DataTemplate x:Key="RowTemplate">
             <ListBox
                 ItemsSource="{Binding}"
                 Style="{StaticResource HorizontalListBox}"
-                ItemTemplate="{StaticResource CellTemplate}"/>
+                ItemTemplate="{StaticResource CellTemplate}"
+                KeyboardNavigation.TabNavigation="Continue" KeyboardNavigation.IsTabStop="False"
+/>
         </DataTemplate>        
     </UserControl.Resources>
 
@@ -42,67 +57,47 @@
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Label Content="Number of unknowns" />
-            <xctk:IntegerUpDown Value="{Binding NUnknown}" Minimum="1" Maximum="20" />
+            <xctk:IntegerUpDown Value="{Binding NUnknown}" Minimum="1" Maximum="20" SelectAllOnGotFocus="True"/>
         </StackPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" VerticalAlignment="Top">
             <Label Content="Equations:"/>
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" MinHeight="80" Margin="10" >
-              <TextBlock Text=" (">
-                  <TextBlock.RenderTransform>
-                    <ScaleTransform ScaleY="4" />
-                  </TextBlock.RenderTransform>
-                </TextBlock>
+                <ContentControl ContentTemplate="{StaticResource parenTemplate}" Content=" ("/>
                 <ListBox
                     VerticalAlignment="Center"
                     ItemsSource="{Binding CoefficientMatrix}"
-                    ItemTemplate="{StaticResource RowTemplate}" BorderThickness="0">                    
+                    ItemTemplate="{StaticResource RowTemplate}" BorderThickness="0" KeyboardNavigation.TabNavigation="Continue"
+                    Name="coeffientMatrix"
+                    >
                 </ListBox>
-                <TextBlock Text=") ">
-                  <TextBlock.RenderTransform>
-                  <ScaleTransform ScaleY="4" />
-                  </TextBlock.RenderTransform>
-              </TextBlock>
-                <TextBlock Text="(">
-                  <TextBlock.RenderTransform>
-                    <ScaleTransform ScaleY="4" />
-                  </TextBlock.RenderTransform>
-                </TextBlock>
+                <ContentControl ContentTemplate="{StaticResource parenTemplate}" Content=") "/>
+                <ContentControl ContentTemplate="{StaticResource parenTemplate}" Content="(" />
                 <ListBox
                     VerticalAlignment="Center"
                     ItemsSource="{Binding Unknowns}"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    KeyboardNavigation.TabNavigation="None">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" />
+                            <TextBlock Text="{Binding}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBlock Text=") ">
-                  <TextBlock.RenderTransform>
-                  <ScaleTransform ScaleY="4" />
-                  </TextBlock.RenderTransform>
-                </TextBlock>
+                <ContentControl ContentTemplate="{StaticResource parenTemplate}" Content=") " />
                 <TextBlock Text="=" VerticalAlignment="Center"/>
-                <TextBlock Text="(">
-                  <TextBlock.RenderTransform>
-                    <ScaleTransform ScaleY="4" />
-                  </TextBlock.RenderTransform>
-                </TextBlock>
+                <ContentControl ContentTemplate="{StaticResource parenTemplate}" Content="(" />
                 <ListBox
                     VerticalAlignment="Center"
                     ItemsSource="{Binding BVector}"
-                    BorderThickness="0">
+                    BorderThickness="0"
+                    KeyboardNavigation.TabNavigation="Continue">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <xctk:DoubleUpDown Value="{Binding Val}" />
+                            <xctk:DoubleUpDown Value="{Binding Val}" SelectAllOnGotFocus="True"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <TextBlock Text=") ">
-                  <TextBlock.RenderTransform>
-                  <ScaleTransform ScaleY="4" />
-                  </TextBlock.RenderTransform>
-                </TextBlock>
+                <ContentControl ContentTemplate="{StaticResource parenTemplate}" Content=")" />
             </StackPanel>
         </StackPanel>
         <StackPanel DockPanel.Dock="Top">

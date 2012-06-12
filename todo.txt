@@ -1,15 +1,7 @@
 plan:
-- math reading and exercises - est 3 days FT
-- UI reading - est 1 day FT
-- write linear program algo and link to UI - est 1 days FT
-- unit tests - est 2 days FT
-- tidying est 1 day FT
 
 math reading:
-- read Strang 1.3, 1.5 (gaussian elim, LU and LUP decomp) and do some exercises
-- read Strang 2,1 2.2 (vector spaces, m*n systems of equations) and then write m*n matrix algos
-- read Strang 8.1, 8.2, 8.3 (linear inequalities, simplex, duality) and do some exercises
-- read first 2/3 of cormen matrix operations chapter, do exercises, write algos
+- read Larson chap 9
 - read cormen chapter 29, p843, do exercises, write algos
 
 UI reading:
@@ -22,11 +14,7 @@ todo now:
 // todo some time:
 
 / on linear equations tab:
-- sort out tab order 
-- changing number of unknowns has big lag
 - unit test linear equation solver
-- understand lup decomp and solving a bit better
-- allow m*n matrices
 
 / on linear programming tab:
 - write algo
@@ -35,7 +23,28 @@ todo now:
 ///
 
 not going to bother with:
+/ on linear equations tab:
+- allow m*n matrices
+- better handling yet of tabbing between elements - seems listbox items are included in tabbing as well as the contained controls, and setting tabstop=false doesn't help
+- changing number of unknowns has a little lag
+
+study the mathematical theory in more detail:
+- read Strang (introduction to LA, or LA and its applications 1.3, 1.5) on gaussian elim, LU and LUP decomp) and do some exercises
+- read Strang (introduction to LA 3.1 and 3.2, or LA and its applications 2.1, 2.2) on vector spaces, m*n systems of equations
+- do exercises in cormen matrix algos chapter (chap 28 I think)
+
+/ on linear programming tab:
 - maybe you can add more constraints by clicking a "+" icon with "add constraint" written on it, like in Quest UI for adding conditions etc?
+- negative coefficients
+- mixed constraints
+- integer constraint
+
+study the mathematical theory in more detail
+- read Strang 8.1, 8.2, 8.3 (linear inequalities, simplex, duality) and do some exercises
+- do exercises in Cormen chap 29
+- do Larson chap 9 exercises
+
+/ both tabs:
 - don't allow nullifying of updowns (e.g. by rewriting control, or by adding some sort of bolted on validation logic)
 
 

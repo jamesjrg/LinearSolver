@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Shapes;
 using LinearSolver.ViewModel;
+using System.Globalization;
 
 namespace LinearSolver.View
 {
@@ -26,6 +27,20 @@ namespace LinearSolver.View
         private void Solve_Click(object sender, RoutedEventArgs e)
         {
             _vm.Solve();
+        }
+    }
+
+    public class ParenScaleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var matrix = (List<List<DependencyDouble>>)value;
+            return matrix.Count * 2;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
         }
     }
 }
