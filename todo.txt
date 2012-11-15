@@ -9,12 +9,13 @@ UI reading:
 - read Advanced MVVM ebook
 
 todo now:
-- when model coefficient matrix is rebuilt parentheses need to be rescaled and equals sign repositioned
+
 
 // todo some time:
 
 / on linear equations tab:
 - unit test linear equation solver
+- when model coefficient matrix is rebuilt parentheses need to be aligned a bit differently if n uknowns is 1 or 2, due to issues with centering
 
 / on linear programming tab:
 - write algo
@@ -26,7 +27,6 @@ not going to bother with:
 / on linear equations tab:
 - allow m*n matrices
 - better handling yet of tabbing between elements - seems listbox items are included in tabbing as well as the contained controls, and setting tabstop=false doesn't help
-- changing number of unknowns has a little lag
 
 study the mathematical theory in more detail:
 - read Strang (introduction to LA, or LA and its applications 1.3, 1.5) on gaussian elim, LU and LUP decomp) and do some exercises
